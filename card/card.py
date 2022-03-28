@@ -38,8 +38,8 @@ class Card:
         recap = (
         f'''
         {self.date}
-        {self.mile}: {self.mile_sum} 원
-        {self.welix}: {self.welix_sum} 원
+        {self.mile_short}: {self.mile_sum} 원
+        {self.welix_short}: {self.welix_sum} 원
         '''
         )
         print(recap)
@@ -47,8 +47,8 @@ class Card:
         choice = int(input(
         """
         ------------Main Menu------------
-        1. Mile 1.8 상세내역               |   
-        2. Welix 상세내역                  |   
+        1. Mile 1.8 상세내역                  
+        2. Welix 상세내역                    
         ------------Main Menu------------
         >> """
 
@@ -63,10 +63,15 @@ class Card:
         mile_df = self.mile_df
         mile_short = self.mile_short
         date = self.date
+
+        mile_list = mile_df['가맹점명'].tolist()
+        mile_list = list(dict.fromkeys(mile_list))
+
         query = input(
         f"""
         --------------------
-        {mile_short} 의 결제내역 중 가맹점명을 입력하세요. (전체내역은 enter)
+        {mile_short} 의 결제내역 중 가맹점명을 입력하세요.
+        (전체내역은 enter)
         ex. 쿠팡, APPLE, 넷플릭스, 택시
         --------------------
         >>"""
@@ -84,7 +89,9 @@ class Card:
         select = int(input(
         f"""
         --------------------
-        {mile_short}에서 다른 가맹점을 찾으려면 1, 메인메뉴로 돌아가려면 2를 입력하세요.
+        {mile_short}에서 다른 가맹점을 찾으려면 1,
+        전체 소비 리스트를 보려면 2,
+        메인메뉴로 돌아가려면 3을 입력하세요.
         --------------------
         >>"""
         ))
@@ -92,16 +99,25 @@ class Card:
         if select == 1:
             thomas.classmile()
         elif select == 2:
+            print(mile_list)
+            thomas.classmile()
+        elif select == 3:
             thomas.main_menu()
 
     def classwelix(self):
         welix_df = self.welix_df
         welix_short = self.welix_short
         date = self.date
+
+        welix_list = welix_df['가맹점명'].tolist()
+        welix_list = list(dict.fromkeys(welix_list))
+
+
         query = input(
         f"""
         --------------------
-        {welix_short} 의 결제내역 중 가맹점명을 입력하세요. (전체내역은 enter)
+        {welix_short} 의 결제내역 중 가맹점명을 입력하세요.
+        (전체내역은 enter)
         ex. 우아한형제들, 코엑스, 택시, 쿠팡, 네이버, TOSS
         --------------------
         >>"""
@@ -119,12 +135,17 @@ class Card:
         select = int(input(
         f"""
         --------------------
-        {welix_short}에서 다른 가맹점을 찾으려면 1, 메인메뉴로 돌아가려면 2를 입력하세요.
+        {welix_short}에서 다른 가맹점을 찾으려면 1,
+        전체 소비 리스트를 보려면 2,
+        메인메뉴로 돌아가려면 3을 입력하세요.
         --------------------
         >>"""
         ))
 
         if select == 1:
+            thomas.classwelix()
+        elif select == 2:
+            print(welix_list)
             thomas.classwelix()
         elif select == 2:
             thomas.main_menu()
