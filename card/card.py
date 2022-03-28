@@ -64,8 +64,10 @@ class Card:
         mile_short = self.mile_short
         date = self.date
 
-        mile_list = mile_df['가맹점명'].tolist()
-        mile_list = list(dict.fromkeys(mile_list))
+        mile_df_x = mile_df[['가맹점명', '결제원금','거래일자']]
+        mile_df_x = mile_df_x.groupby('가맹점명', sort=True)['결제원금'].sum()
+        mile_df_x = pd.DataFrame(mile_df_x)
+        mile_df_x = mile_df_x.sort_values(by='결제원금', ascending=False)
 
         query = input(
         f"""
@@ -99,7 +101,7 @@ class Card:
         if select == 1:
             thomas.classmile()
         elif select == 2:
-            print(mile_list)
+            print(mile_df_x)
             thomas.classmile()
         elif select == 3:
             thomas.main_menu()
@@ -109,9 +111,10 @@ class Card:
         welix_short = self.welix_short
         date = self.date
 
-        welix_list = welix_df['가맹점명'].tolist()
-        welix_list = list(dict.fromkeys(welix_list))
-
+        welix_df_x = welix_df[['가맹점명', '결제원금','거래일자']]
+        welix_df_x = welix_df_x.groupby('가맹점명', sort=True)['결제원금'].sum()
+        welix_df_x = pd.DataFrame(welix_df_x)
+        welix_df_x = welix_df_x.sort_values(by='결제원금', ascending=False)
 
         query = input(
         f"""
@@ -145,7 +148,7 @@ class Card:
         if select == 1:
             thomas.classwelix()
         elif select == 2:
-            print(welix_list)
+            print(welix_df_x)
             thomas.classwelix()
         elif select == 2:
             thomas.main_menu()
