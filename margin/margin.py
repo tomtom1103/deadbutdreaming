@@ -15,15 +15,18 @@ def margin(directory):
             p = PdfFileReader(f)
             number_of_pages = p.getNumPages()
             writer = PdfFileWriter()
-            margin = 175
+            margin = 250
             print(f'margin: {margin}')
             for i in tqdm(range(number_of_pages)):
                 page = p.getPage(i)
                 new_page = writer.addBlankPage(
                     page.mediabox.getWidth() + 2 * margin,
-                    page.mediabox.getHeight() + 2 * margin
+                    #page.mediabox.getHeight() + 0.8 * margin
+                    page.mediabox.getHeight() + 0.2 * margin
                 )
-                new_page.mergeScaledTranslatedPage(page, 1, margin-(margin*0.5), margin)
+                #new_page.mergeScaledTranslatedPage(page, 1, margin-(margin*0.5), margin-(margin*0.5))
+                new_page.mergeScaledTranslatedPage(page, 1, margin-(margin*0.5), margin-margin*0.9)
+
 
             with open(f'{directory}/output{filename}_margin.pdf', 'wb') as f:
                 writer.write(f)
