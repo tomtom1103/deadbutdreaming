@@ -28,7 +28,7 @@ def margin(directory):
                 new_page.mergeScaledTranslatedPage(page, 1, margin-(margin*0.5), margin-margin*0.9)
 
 
-            with open(f'{directory}/output{filename}_margin.pdf', 'wb') as f:
+            with open(f'{directory}/output{filename}', 'wb') as f:
                 writer.write(f)
 
 
